@@ -5,6 +5,6 @@ export default Route.extend({
   afterModel() {
     later(this, () => {
       this.transitionTo('index');
-    }, 1000);
+    }, 500);
   }
 });
