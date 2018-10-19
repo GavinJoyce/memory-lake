@@ -1,4 +1,4 @@
 {
   "jquery-integration": true,
-  "template-only-glimmer-components": true
+  "template-only-glimmer-components": false
 }

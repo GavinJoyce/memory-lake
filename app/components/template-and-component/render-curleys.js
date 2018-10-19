@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { later } from '@ember/runloop';
+import { cancel, later } from '@ember/runloop';
 
 export default Component.extend({
   iteration: 0,
@@ -7,7 +7,15 @@ export default Component.extend({
   isRunning: false,
 
   didInsertElement() {
-    later(this, this.toggleComponents, 50);
+    this.set('timer', later(this, this.toggleComponents, 50));
+  },
+
+  didDestroyElement() {
+    this._super(...arguments);
+
+    if (this.get('timer')) {
+      cancel(this.get('timer'));
+    }
   },
 
   toggleComponents() {
@@ -16,7 +24,7 @@ export default Component.extend({
       this.toggleProperty('showComponents');
     }
 
-    later(this, this.toggleComponents, 50);
+    this.set('timer', later(this, this.toggleComponents, 50));
   },
 
   actions: {
